@@ -1,20 +1,18 @@
 [project]
 name = "clean_management"
+version = "1.0.0"
+description = "A professional cleaning service management system built on Frappe."
 authors = [
-    { name = "Arsha Paul", email = "arshapaulash@gmail.com"}
+    { name="Arsha Paul", email="arsha_paul7@gmail.com" }
 ]
-description = "Clean Management System"
-requires-python = ">=3.10"
+license = { text="MIT" }
 readme = "README.md"
-dynamic = ["version"]
-dependencies = [
-    # "frappe~=15.0.0" # Installed and managed by bench.
-]
+requires-python = ">=3.10"
+dependencies = []
+
+[tool.setuptools]
+packages = ["clean_management"]
 
 [build-system]
-requires = ["flit_core >=3.4,<4"]
-build-backend = "flit_core.buildapi"
-
-# These dependencies are only installed when developer mode is enabled
-[tool.bench.dev-dependencies]
-# package_name = "~=1.1.0"
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
