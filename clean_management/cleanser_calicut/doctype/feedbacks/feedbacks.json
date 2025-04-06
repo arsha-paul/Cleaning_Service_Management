@@ -1,0 +1,76 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:FB-{YY}-{####}",
+ "creation": "2025-03-28 09:06:16.635462",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "date",
+  "username",
+  "rate",
+  "feedback",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "username",
+   "fieldtype": "Link",
+   "label": "Username",
+   "options": "User"
+  },
+  {
+   "default": "Today",
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "feedback",
+   "fieldtype": "Small Text",
+   "label": "Feedback"
+  },
+  {
+   "fieldname": "rate",
+   "fieldtype": "Select",
+   "label": "Rate",
+   "options": "\u2b50\n\u2b50\u2b50\n\u2b50\u2b50\u2b50\n\u2b50\u2b50\u2b50\u2b50\n\u2b50\u2b50\u2b50\u2b50\u2b50"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Feedbacks",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-04-03 12:39:21.637125",
+ "modified_by": "Administrator",
+ "module": "Cleanser_calicut",
+ "name": "Feedbacks",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

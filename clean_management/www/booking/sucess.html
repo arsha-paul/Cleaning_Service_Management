@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmed - Cleanser Calicut</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .success-container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 450px;
+            text-align: center;
+            z-index: 2;
+        }
+
+        .success-container h1 {
+            color: #28a745;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .success-container p {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .home-button {
+            margin-top: 30px;
+            background: #1565c0;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+            display: inline-block;
+        }
+
+        .home-button:hover {
+            background: #0d47a1;
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Confetti Animation */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: red;
+            top: 0;
+            opacity: 0.7;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(720deg); }
+        }
+
+        /* Fireworks */
+        .firework {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: yellow;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: explode 1s ease-out infinite;
+        }
+
+        @keyframes explode {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(4); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="success-container">
+        <h1>🎉 Booking Confirmed! 🎉</h1>
+        <p>Your service request has been successfully received.</p>
+        <p>Our team will connect with you soon.</p>
+        
+        <div style="margin: 30px 0;"></div>
+        
+        <a href="/user/dash.html" class="home-button">Go to Home</a>
+    </div>
+
+    <script>
+        function createConfetti() {
+            for (let i = 0; i < 50; i++) {
+                let confetti = document.createElement("div");
+                confetti.classList.add("confetti");
+                document.body.appendChild(confetti);
+
+                confetti.style.left = Math.random() * 100 + "vw";
+                confetti.style.animationDuration = Math.random() * 3 + 2 + "s";
+                confetti.style.background = ["#ff0", "#f00", "#0f0", "#00f", "#f0f", "#ff8800"][Math.floor(Math.random() * 6)];
+
+                setTimeout(() => confetti.remove(), 5000);
+            }
+        }
+
+        function createFireworks() {
+            for (let i = 0; i < 10; i++) {
+                let firework = document.createElement("div");
+                firework.classList.add("firework");
+                document.body.appendChild(firework);
+
+                firework.style.left = Math.random() * 100 + "vw";
+                firework.style.top = Math.random() * 50 + "vh";
+                firework.style.animationDuration = "1s";
+                firework.style.background = ["#ff0", "#f00", "#0f0", "#00f", "#f0f", "#ff8800"][Math.floor(Math.random() * 6)];
+
+                setTimeout(() => firework.remove(), 1000);
+            }
+        }
+
+        createConfetti();
+        setInterval(createConfetti, 3000);
+        setInterval(createFireworks, 2000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - Cleanser Calicut</title>
+    <style>
+        /* Add this new style for the modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 1002;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 600px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            color: #0d47a1;
+        }
+
+        .modal-header .close-btn {
+            font-size: 24px;
+            cursor: pointer;
+            color: #0d47a1;
+            transition: color 0.3s;
+        }
+
+        .modal-header .close-btn:hover {
+            color: red;
+        }
+
+        .bookings-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .bookings-table th,
+        .bookings-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .bookings-table th {
+            background: #0d47a1;
+            color: white;
+            font-weight: 600;
+        }
+
+        .bookings-table tr:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .bookings-table td {
+            color: #333;
+        }
+
+        .no-bookings {
+            text-align: center;
+            color: #666;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        /* Profile Details Styling */
+        .profile-details {
+            margin-bottom: 20px;
+        }
+
+        .profile-details p {
+            font-size: 16px;
+            margin: 10px 0;
+            color: #333;
+        }
+
+        .profile-details strong {
+            color: #0d47a1;
+        }
+
+        /* Image Upload Section Styling */
+        .image-upload-section {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .image-upload-section h3 {
+            color: #0d47a1;
+            margin-bottom: 15px;
+        }
+
+        .image-preview-container {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 15px;
+            border: 2px dashed #0d47a1;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        #profileImagePreview {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 50%;
+        }
+
+        .image-upload-section input[type="file"] {
+            display: none;
+        }
+
+        .upload-btn {
+            background: #1565c0;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+
+        .upload-btn:hover {
+            background: #0d47a1;
+        }
+
+        /* Fade-in Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Full-screen background image */
+        body {
+            background: url('office.jpg') no-repeat center center/cover;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px 40px;
+            color: #ff9800;
+            z-index: 1000;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar .logo {
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropbtn {
+            background: transparent;
+            border: none;
+            color: #ff9800;
+            font-size: 18px;
+            cursor: pointer;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .dropbtn:hover {
+            color: white;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background: rgba(0, 0, 0, 0.8);
+            min-width: 160px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .dropdown-content a {
+            color: #ff9800;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background 0.3s;
+        }
+
+        .dropdown-content a:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Dashboard Container */
+        .dashboard-container {
+            width: 260px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 60px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .dashboard-links a {
+            display: block;
+            padding: 12px;
+            background: #0d47a1;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+
+        .dashboard-links a:hover {
+            background: #ff9800;
+        }
+
+        /* Content Area */
+        .content {
+            margin-left: 280px;
+            width: calc(100% - 280px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            flex-grow: 1;
+            padding-top: 80px;
+            color: white;
+        }
+
+        .welcome-section {
+            font-size: 36px;
+            color: white;
+            font-weight: bold;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        /* Feedback Section */
+        .feedback-container {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 350px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+        }
+
+        .feedback-container h2 {
+            color: #0d47a1;
+            margin-bottom: 20px;
+        }
+
+        .feedback-form input,
+        .feedback-form select,
+        .feedback-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .feedback-form button {
+            background: #1565c0;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .feedback-form button:hover {
+            background: #0d47a1;
+        }
+
+        .feedback-list {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .feedback-item {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .feedback-item strong {
+            color: #0d47a1;
+        }
+
+        /* Exit Button for Feedback Box */
+        .exit-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 22px;
+            cursor: pointer;
+            color: #0d47a1;
+            transition: color 0.3s;
+        }
+
+        .exit-btn:hover {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">Cleanser Calicut</div>
+        <div class="nav-links">
+            <a href="../booking/booking.html" class="dropbtn">Book Now</a>
+            <div class="dropdown">
+                <button class="dropbtn">More▼</button>
+                <div class="dropdown-content">
+                    <a href="/profile_update">Profile</a>
+                    <a href="#" onclick="logout()">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Sidebar -->
+    <div class="dashboard-container">
+        <div class="dashboard-links">
+            <a href="#dashboard">Dashboard</a>
+            <a href="javascript:void(0);" onclick="openBookingsModal()">My Bookings</a>
+            <a href="javascript:void(0);" onclick="toggleFeedbackForm()">Feedback</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+        <div class="welcome-section">
+            <h1>Hi, <span id="username">User</span>!</h1>
+            <p>"Take control of your cleaning services. Efficiently schedule, review, and communicate with your team."</p>
+        </div>
+    </div>
+
+    <!-- Feedback Form -->
+    <div id="feedbackContainer" class="feedback-container">
+        <span class="exit-btn" onclick="toggleFeedbackForm()">×</span>
+        <h2>Customer Testimony</h2>
+        <form class="feedback-form" id="feedbackForm">
+            <input type="text" id="name" placeholder="Your Name" required>
+            <select id="rating" required>
+                <option value="">Rate Us</option>
+                <option value="1">⭐</option>
+                <option value="2">⭐⭐</option>
+                <option value="3">⭐⭐⭐</option>
+                <option value="4">⭐⭐⭐⭐</option>
+                <option value="5">⭐⭐⭐⭐⭐</option>
+            </select>
+            <textarea id="review" placeholder="Your Review" rows="4" required></textarea>
+            <button type="submit">Submit Feedback</button>
+        </form>
+        <div class="feedback-list" id="feedbackList"></div>
+    </div>
+
+    <!-- Bookings Modal -->
+    <div id="bookingsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>My Bookings</h2>
+                <span class="close-btn" onclick="closeBookingsModal()">×</span>
+            </div>
+            <div id="bookingsTableContainer"></div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        &copy; 2025 Cleanser Calicut. All rights reserved.
+    </div>
+
+    <script>
+        function openBookingsModal() {
+            const modal = document.getElementById("bookingsModal");
+            modal.style.display = "flex";
+
+            fetch('/api/method/get_user_bookings')
+                .then(response => response.json())
+                .then(data => {
+                    const bookingsTableContainer = document.getElementById("bookingsTableContainer");
+                    if (data.length > 0) {
+                        let table = `<table class="bookings-table">
+                            <thead>
+                                <tr>
+                                    <th>Booking ID</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>`;
+                        data.forEach(booking => {
+                            table += `<tr>
+                                <td>${booking.id}</td>
+                                <td>${booking.date}</td>
+                                <td>${booking.status}</td>
+                            </tr>`;
+                        });
+                        table += `</tbody></table>`;
+                        bookingsTableContainer.innerHTML = table;
+                    } else {
+                        bookingsTableContainer.innerHTML = `<p class="no-bookings">No bookings found.</p>`;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching bookings:', error);
+                    bookingsTableContainer.innerHTML = `<p class="no-bookings">Failed to load bookings. Please try again later.</p>`;
+                });
+        }
+
+        function closeBookingsModal() {
+            document.getElementById("bookingsModal").style.display = "none";
+        }
+
+        function toggleFeedbackForm() {
+            var form = document.getElementById("feedbackContainer");
+            form.style.display = form.style.display === "none" || form.style.display === "" ? "block" : "none";
+        }
+
+        document.getElementById("feedbackForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            let name = "Logged-in User";
+            let rating = document.getElementById("rating").value;
+            let review = document.getElementById("review").value;
+
+            if (rating && review) {
+                let feedbackItem = document.createElement("div");
+                feedbackItem.className = "feedback-item";
+                feedbackItem.innerHTML = `<strong>${name}</strong> - ${"⭐".repeat(rating)}<p>${review}</p>`;
+                document.getElementById("feedbackList").appendChild(feedbackItem);
+                document.getElementById("feedbackForm").reset();
+            }
+        });
+
+        function logout() {
+            fetch("/api/method/logout", {
+                method: "POST",
+                credentials: "include"
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Logout Successful:", data);
+                window.location.href = "/home/newhome.html";
+            })
+            .catch(error => console.error("Logout Error:", error));
+        }
+
+        function fetchUsername() {
+            fetch('/api/method/get_username')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("username").textContent = data.username || "User";
+                })
+                .catch(error => {
+                    console.error('Error fetching username:', error);
+                    document.getElementById("username").textContent = "User";
+                });
+        }
+
+        fetchUsername();
+    </script>
+</body>
+
+</html>
+

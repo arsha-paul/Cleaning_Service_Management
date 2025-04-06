@@ -1,0 +1,148 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:BK-{YY}-{####}",
+ "creation": "2025-02-06 13:06:53.933049",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "booking_section",
+  "username",
+  "phone",
+  "service_type",
+  "date",
+  "image",
+  "booking_date",
+  "column_break_oydm",
+  "district",
+  "city",
+  "special_instructions",
+  "address",
+  "sqft",
+  "amount",
+  "section_break_timd",
+  "location",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "booking_section",
+   "fieldtype": "Section Break",
+   "label": "Booking"
+  },
+  {
+   "default": "Today",
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "location",
+   "fieldtype": "Geolocation",
+   "label": "Location"
+  },
+  {
+   "fieldname": "sqft",
+   "fieldtype": "Float",
+   "label": "Sqft"
+  },
+  {
+   "fieldname": "phone",
+   "fieldtype": "Data",
+   "label": "Phone",
+   "options": "+91"
+  },
+  {
+   "fieldname": "address",
+   "fieldtype": "Small Text",
+   "label": "Address"
+  },
+  {
+   "fieldname": "district",
+   "fieldtype": "Select",
+   "label": "District",
+   "options": "Kannur\nWayanad\nKozhikode\nMalappuram\nPalakkad\nThrissur\nErnakulam\nIdukki\nKottayam\nAlappuzha\nPathanamthitta\nKollam\nThiruvananthapuram"
+  },
+  {
+   "fieldname": "image",
+   "fieldtype": "Attach Image",
+   "label": "Image"
+  },
+  {
+   "fieldname": "city",
+   "fieldtype": "Select",
+   "label": "City"
+  },
+  {
+   "fieldname": "username",
+   "fieldtype": "Link",
+   "label": "Username",
+   "options": "User"
+  },
+  {
+   "fieldname": "service_type",
+   "fieldtype": "Select",
+   "label": "Service Type ",
+   "options": "\nRegular house cleaning\napartment cleaning\nmove-out/move-in cleaning\nspring cleaning\ndeep cleaning\noffice cleaning\ncommercial cleaning\njanitorial services\ncarpet cleaning\nwindow cleaning\nupholstery cleaning\npost-construction cleaning\nevent cleaning\nfloor waxing\ntile and grout cleaning\npressure washing\ndisinfection services\ngreen cleaning\nvacation rental cleaning"
+  },
+  {
+   "fieldname": "special_instructions",
+   "fieldtype": "Data",
+   "label": "Special_Instruction"
+  },
+  {
+   "fieldname": "column_break_oydm",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_timd",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "booking_date",
+   "fieldtype": "Date",
+   "label": "Booking date"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Booking",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "label": "Amount"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-04-04 06:53:58.644165",
+ "modified_by": "Administrator",
+ "module": "Cleanser_calicut",
+ "name": "Booking",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

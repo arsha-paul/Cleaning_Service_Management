@@ -1,0 +1,146 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Clean Management</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #bbdefb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Login Container */
+        .login-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+
+        h1 {
+            color: #1565c0;
+            font-size: 28px;
+        }
+
+        h2 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #0d47a1;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        input {
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #64b5f6;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            background: #1565c0;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #0d47a1;
+        }
+
+        p {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        a {
+            color: #1565c0;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Clean Management</h1>
+        <h2>Login</h2>
+        <form id="login-form">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <p>Don't have an account? <a href="/register">Register</a></p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('#login-form');
+    
+            form.addEventListener('submit', async function(event) {
+                event.preventDefault();
+
+                const username = document.querySelector('input[name="username"]').value.trim();
+                const password = document.querySelector('input[name="password"]').value.trim();
+
+                if (!username || !password) {
+                    alert("Please enter both username and password.");
+                    return;
+                }
+
+                try {
+                    const response = await fetch('/api/method/login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: `usr=${encodeURIComponent(username)}&pwd=${encodeURIComponent(password)}`
+                    });
+
+                    const result = await response.json();
+
+                    if (response.ok) {
+                        alert("Login successful! Redirecting...");
+
+                        // Fetch logged-in user
+                        const userResponse = await fetch('/api/method/frappe.auth.get_logged_user');
+                        const userData = await userResponse.json();
+
+                        // Redirect based on role
+                        if (userData.message === "Administrator") {
+                            window.location.href = '/app/clean-management';
+                        } else {
+                            window.location.href = '/app/clean-management';
+                        }
+                    } else {
+                        alert(result.message || "Login failed. Check your credentials.");
+                    }
+                } catch (error) {
+                    console.error("Error during login:", error);
+                    alert("An error occurred. Please try again.");
+                }
+            });
+        });
+    </script>
+</body>
+</html> -->

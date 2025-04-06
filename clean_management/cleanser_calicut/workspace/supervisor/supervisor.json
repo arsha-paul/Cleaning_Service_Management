@@ -1,0 +1,38 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"G1mDDkfooG\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Supervisor</span>\",\"col\":12}},{\"id\":\"pJrMhbkoxn\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"Supervisor\",\"col\":12}}]",
+ "creation": "2025-03-10 16:26:14.814880",
+ "custom_blocks": [
+  {
+   "custom_block_name": "Supervisor",
+   "label": "Supervisor"
+  }
+ ],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "share-people",
+ "idx": 0,
+ "indicator_color": "",
+ "is_hidden": 0,
+ "label": "Supervisor",
+ "links": [],
+ "modified": "2025-03-24 15:26:10.317104",
+ "modified_by": "Administrator",
+ "module": "Cleanser_calicut",
+ "name": "Supervisor",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [
+  {
+   "role": "Supervisors"
+  }
+ ],
+ "sequence_id": 28.0,
+ "shortcuts": [],
+ "title": "Supervisor"
+}

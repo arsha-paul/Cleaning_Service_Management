@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Cleanser Calicut</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .home-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: #1565c0;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+        }
+
+        .home-button:hover {
+            background: #0d47a1;
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .register-container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .register-container h2 {
+            margin-bottom: 20px;
+            color: #1565c0;
+        }
+
+        .register-form input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        .register-form button {
+            background: #ff9800;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: all 0.3s;
+        }
+
+        .register-form button:hover {
+            background: #e68900;
+            transform: scale(1.05);
+        }
+
+        .captcha-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #e3f2fd;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .captcha-text {
+            font-weight: bold;
+            font-size: 18px;
+            letter-spacing: 2px;
+        }
+
+        .captcha-refresh {
+    background: #ff5722; /* New color */
+    border: none;
+    padding: 6px 10px; /* Smaller size */
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 20px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+.captcha-refresh:hover {
+    background: #e64a19; /* Slightly darker on hover */
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+}
+
+
+        .login-link {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .login-link a {
+            color: #1565c0;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <a href="/home/newhome.html" class="home-button">Home</a>
+    <div class="register-container">
+        <h2>Register</h2>
+        <form class="register-form" onsubmit="return validateForm()">
+            <input type="text" placeholder="Full Name" required>
+            <input type="tel" placeholder="+91" pattern="\\+91[0-9]{10}" required>
+            <input type="email" placeholder="Email" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <input type="password" id="confirm-password" placeholder="Confirm Password" required>
+            
+            <div class="captcha-container">
+                <span class="captcha-text" id="captcha">AB12C</span>
+                <button type="button" class="captcha-refresh" onclick="generateCaptcha()">&#x21bb;</button>
+            </div>
+            <input type="text" placeholder="Enter Captcha" id="captcha-input" required>
+            
+            <button type="submit">Register</button>
+        </form>
+        <div class="login-link">
+            Already have an account? <a href="/login/login.html">Login here</a>
+        </div>
+    </div>
+
+    <script>
+        async function registerUser(event) {
+            event.preventDefault(); // Prevent form from refreshing
+    
+            const full_name = document.getElementById('full_name').value;
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            const captchaInput = document.getElementById('captcha-input').value;
+            const captchaText = document.getElementById('captcha').innerText;
+    
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+    
+            if (captchaInput !== captchaText) {
+                alert('Captcha incorrect!');
+                return;
+            }
+    
+            const data = {
+                full_name: full_name,
+                phone: phone,
+                email: email,
+                password: password
+            };
+    
+            try {
+                const response = await fetch('/api/method/clean_management.api.register_user', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+    
+                const result = await response.json();
+                if (result.message === "success") {
+                    alert("Registration successful!");
+                    window.location.href = "/login/login.html"; // Redirect to login
+                } else {
+                    alert(result.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert("Registration failed! Please try again.");
+            }
+        }
+    
+        function generateCaptcha() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let captcha = '';
+            for (let i = 0; i < 5; i++) {
+                captcha += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            document.getElementById('captcha').innerText = captcha;
+        }
+    </script>
+    
+
+<form class="register-form" onsubmit="return registerUser(event)">
+    <input type="text" id="full_name" placeholder="Full Name" required>
+    <input type="tel" id="phone" placeholder="+91" pattern="\+91[0-9]{10}" required>
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <input type="password" id="confirm-password" placeholder="Confirm Password" required>
+    
+    <div class="captcha-container">
+        <span class="captcha-text" id="captcha">AB12C</span>
+        <button type="button" class="captcha-refresh" onclick="generateCaptcha()">&#x21bb;</button>
+    </div>
+    <input type="text" id="captcha-input" placeholder="Enter Captcha" required>
+    
+    <button type="submit">Register</button>
+</form>
+
+
+
+</body>
+</html>

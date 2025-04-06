@@ -1,0 +1,38 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"1GP1CnWT8H\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"User\",\"col\":12}}]",
+ "creation": "2025-03-23 20:32:04.086904",
+ "custom_blocks": [
+  {
+   "custom_block_name": "User",
+   "label": "User"
+  }
+ ],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "users",
+ "idx": 0,
+ "indicator_color": "",
+ "is_hidden": 0,
+ "label": "User Dashboard",
+ "links": [],
+ "modified": "2025-03-24 15:24:54.082195",
+ "modified_by": "Administrator",
+ "module": "Cleanser_calicut",
+ "name": "User Dashboard",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [
+  {
+   "role": "User"
+  }
+ ],
+ "sequence_id": 30.0,
+ "shortcuts": [],
+ "title": "User Dashboard"
+}

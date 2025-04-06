@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - Cleanser Calicut</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .payment-container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .payment-container h2 {
+            margin-bottom: 20px;
+            color: #1565c0;
+        }
+
+        .details {
+            text-align: left;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .payment-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .payment-method {
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .payment-method:hover, .selected {
+            background: #f1f1f1;
+            border-color: #1565c0;
+        }
+
+        .pay-now {
+            background: #ff9800;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+
+        .pay-now:hover {
+            background: #e68900;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-container">
+        <h2>Payment</h2>
+
+        <div class="details">
+            <p><strong>Booking ID:</strong> <span id="booking"></span></p>
+            <p><strong>Name:</strong> <span id="user"></span></p>
+            <!-- <p><strong>Service:</strong> <span id="serviceType"></span></p> -->
+            <p><strong>Payment Date:</strong> <span id="payment_date"></span></p>
+            <p><strong>Payment Status:</strong> <span id="payment_status"></span></p>
+            
+            <p><strong>Price:</strong> ₹<span id="amount">1000.00</span></p>
+        </div>
+
+        <div class="payment-methods">
+            <div class="payment-method" onclick="selectPayment(this, 'Cash')">Cash</div>
+            <div class="payment-method" onclick="selectPayment(this, 'UPI')">UPI</div>
+            <div class="payment-method" onclick="selectPayment(this, 'Credit Card')">Credit Card</div>
+            <div class="payment-method" onclick="selectPayment(this, 'Net Banking')">Net Banking</div>
+        </div>
+
+        <button class="pay-now" onclick="processPayment()">Pay Now</button>
+    </div>
+
+    <script>
+        const bookingDetails = JSON.parse(localStorage.getItem("bookingDetails"));
+
+        if (bookingDetails) {
+            document.getElementById("booking").innerText = bookingDetails.id || "N/A";
+            document.getElementById("user").innerText = bookingDetails.user || "Guest";
+            document.getElementById("serviceType").innerText = bookingDetails.type || "Not specified";
+            document.getElementById("payment_date").innerText = new Date().toISOString().split("T")[0];
+            document.getElementById("payment_status").innerText = "Not Paid";
+            document.getElementById("amount").innerText = "1000.00"; // Ensure default amount
+        }
+
+        let selectedPaymentMethod = "";
+
+        function selectPayment(element, method) {
+            document.querySelectorAll(".payment-method").forEach(el => el.classList.remove("selected"));
+            element.classList.add("selected");
+
+            selectedPaymentMethod = method;
+        }
+
+        async function processPayment() {
+            if (!selectedPaymentMethod) {
+                alert("Please select a payment method!");
+                return;
+            }
+
+            alert("Processing payment via " + selectedPaymentMethod + "...");
+
+            const paymentData = {
+                user: document.getElementById("user").innerText,
+                booking: document.getElementById("booking").innerText,
+                amount: "1000.00",
+                payment_status: "Paid",
+                payment_method: selectedPaymentMethod,
+                payment_date: document.getElementById("payment_date").innerText
+            };
+
+            try {
+                const response = await fetch('/api/resource/Payment', {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    body: JSON.stringify(paymentData)
+                });
+
+                const result = await response.json();
+                
+                if (response.ok) {
+                    alert("Payment successful!");
+                    window.location.href = "./sucess.html";
+                } else {
+                    alert("Payment failed: " + result.message);
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Something went wrong. Please try again.");
+            }
+        }
+
+
+        const response = await fetch('/api/method/clean_management.api.create_payment', {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+    },
+    body: JSON.stringify(paymentData)
+});
+
+
+    </script>
+</body>
+</html>

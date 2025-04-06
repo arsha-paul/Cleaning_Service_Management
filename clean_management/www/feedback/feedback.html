@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Reviews - Cleanser Calicut</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #f8f9fa;
+            color: #333;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px 40px;
+            color: #ff9800;
+            z-index: 1000;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar .logo {
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .navbar ul li a {
+            color: #ff9800;
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .navbar ul li a:hover {
+            color: white;
+        }
+
+        /* Main Content Container */
+        .main-container {
+            max-width: 1000px;
+            margin: 100px auto 40px;
+            padding: 20px;
+        }
+
+        /* Feedback Form */
+        .feedback-form-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .feedback-form-container h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #0d47a1;
+            text-align: center;
+        }
+
+        .feedback-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .submit-btn {
+            background: #0d47a1;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #1565c0;
+        }
+
+        /* Comments List Container */
+        .comments-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .comments-container h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #0d47a1;
+            text-align: center;
+        }
+
+        /* Comment Card */
+        .comment-card {
+            background: #f8f9fa;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .comment-card strong {
+            font-size: 18px;
+            color: #333;
+        }
+
+        .comment-card .rating {
+            color: #ff9800;
+            font-size: 16px;
+        }
+
+        .comment-card .date {
+            font-size: 14px;
+            color: #777;
+        }
+
+        .comment-card p {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: #ff9800;
+            margin-top: 40px;
+        }
+
+        /* Loading State */
+        .loading {
+            text-align: center;
+            padding: 20px;
+            font-size: 18px;
+            color: #666;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+        }
+
+        .empty-state p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">Cleanser Calicut</div>
+        <ul>
+            <li><a href="/home/newhome.html">Home</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Feedback Form (commented out as per your request) -->
+        <!-- <div class="feedback-form-container">
+            <h2>Share Your Experience</h2>
+            <form class="feedback-form" id="feedbackForm">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <label for="rating">Rating</label>
+                    <select id="rating" required>
+                        <option value="">Select your rating</option>
+                        <option value="1">⭐ (Poor)</option>
+                        <option value="2">⭐⭐ (Fair)</option>
+                        <option value="3">⭐⭐⭐ (Good)</option>
+                        <option value="4">⭐⭐⭐⭐ (Very Good)</option>
+                        <option value="5">⭐⭐⭐⭐⭐ (Excellent)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="review">Your Review</label>
+                    <textarea id="review" placeholder="Tell us about your experience..." required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Submit Review</button>
+            </form>
+        </div> -->
+
+        <!-- Comments List Container -->
+        <div class="comments-container">
+            <h2>Customer Reviews</h2>
+            <div id="commentsList" class="loading">Loading reviews...</div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">&copy; 2025 Cleanser Calicut. All rights reserved.</div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+    loadComments();
+});
+
+function loadComments() {
+    const commentsList = document.getElementById("commentsList");
+
+    // Show loading state
+    commentsList.innerHTML = '<div class="loading">Loading reviews...</div>';
+
+    // Fetch feedbacks from Frappe backend
+    fetch('/api/method/clean_management.api.get_feedbacks')
+        .then(response => response.json())
+        .then(data => {
+            commentsList.innerHTML = ''; // Clear loading text
+
+            if (data.message && data.message.feedbacks && data.message.feedbacks.length > 0) {
+                data.message.feedbacks.forEach(feedback => {
+                    const commentCard = document.createElement("div");
+                    commentCard.classList.add("comment-card");
+
+                    commentCard.innerHTML = `
+                        <div class="comment-header">
+                            <strong>${feedback.username || 'Anonymous'}</strong>
+                            <div>
+                                <span class="rating">${feedback.rate || ''}</span>
+                                <span class="date">${formatDate(feedback.date)}</span>
+                            </div>
+                        </div>
+                        <p>${feedback.feedback || 'No review text provided.'}</p>
+                    `;
+
+                    commentsList.appendChild(commentCard);
+                });
+            } else {
+                commentsList.innerHTML = `<div class="empty-state"><p>No reviews available yet.</p></div>`;
+            }
+        })
+        .catch(error => {
+            console.error("Error loading reviews:", error);
+            commentsList.innerHTML = `<div class="empty-state"><p>Error loading reviews. Please try again later.</p></div>`;
+        });
+}
+
+// Helper function to format the date
+function formatDate(dateString) {
+    if (!dateString) return '';
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString('en-US', options);
+}
+
+        </script>
+</body>
+</html>

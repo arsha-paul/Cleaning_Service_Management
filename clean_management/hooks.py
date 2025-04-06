@@ -5,6 +5,8 @@ app_description = "Clean Management System"
 app_email = "arshapaulash@gmail.com"
 app_license = "mit"
 
+import frappe
+
 # Apps
 # ------------------
 
@@ -57,7 +59,9 @@ app_license = "mit"
 # ----------
 
 # application home page (will override Website Settings)
-# home_page = "login"
+home_page = "home/newhome"
+
+
 
 # website user home page (by Role)
 # role_home_page = {
@@ -117,9 +121,18 @@ app_license = "mit"
 # -----------
 # Permissions evaluated in scripted ways
 
-# permission_query_conditions = {
-# 	"Event": "frappe.desk.doctype.event.event.get_permission_query_conditions",
-# }
+permission_query_conditions = {
+	"Event": "frappe.desk.doctype.event.event.get_permission_query_conditions",
+}
+
+permission_query_conditions = {
+    "assign_booking": "clean_management.assign-booking.get_permission_query_conditions"
+}
+
+permission_query_conditions = {
+    "cleaning_task_section": "clean_management.cleaning_task_section.get_permission_query_conditions"
+}
+
 #
 # has_permission = {
 # 	"Event": "frappe.desk.doctype.event.event.has_permission",
@@ -196,8 +209,11 @@ app_license = "mit"
 
 # Request Events
 # ----------------
-# before_request = ["clean_management.utils.before_request"]
-# after_request = ["clean_management.utils.after_request"]
+# hooks.py
+
+before_request = ["clean_management.api.set_cors_headers"]
+after_request = ["clean_management.api.add_cors_headers"]
+
 
 # Job Events
 # ----------
@@ -242,3 +258,93 @@ app_license = "mit"
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
 
+# website_route_rules = [
+#     {"from_route": "/login", "to_route": "cleanser_calicut/www/login.html"}
+# ]
+
+# app_include_js = ["/assets/cleanser_calicut/js/login.js"]
+
+# website_route_rules = [
+#     {"from_route": "/login", "to_route": "login"}
+# ]
+
+
+web_routes = [
+    {"from_route": "/user-dashboard", "to_route": "user_dashboard"}
+]
+
+
+signup_form_template = "clean_management/templates/register.html"
+
+# def after_login(login_manager):
+#     user = frappe.get_doc("User", login_manager.user)
+    
+#     if "Supervisor" in frappe.get_roles(user.name):
+#         frappe.local.response["home_page"] = "/supervisor-dashboard"
+#     elif "User" in frappe.get_roles(user.name):
+#         frappe.local.response["home_page"] = "/user-dashboard"
+
+
+api_methods = [
+    "clean_management.api.register_user"
+]
+
+
+# override_whitelisted_methods = {
+#     "frappe.client.get_list": "frappe.client.get_list",
+#     "frappe.client.get": "frappe.client.get",
+#     "frappe.client.insert": "frappe.client.insert",
+#     "frappe.client.delete": "frappe.client.delete"
+# }
+
+from frappe import hooks
+
+import frappe
+
+def set_cors_headers():
+    """Set CORS headers for all incoming requests."""
+    if frappe.request and frappe.request.method == "OPTIONS":
+        frappe.local.response.headers["Access-Control-Allow-Origin"] = "*"
+        frappe.local.response.headers["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS"
+        frappe.local.response.headers["Access-Control-Allow-Headers"] = "Content-Type"
+        frappe.local.response["status_code"] = 200  # Return a 200 OK for OPTIONS requests
+        return frappe.local.response
+
+def add_cors_headers():
+    """Add CORS headers to all responses."""
+    frappe.local.response.headers["Access-Control-Allow-Origin"] = "*"
+    frappe.local.response.headers["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS"
+    frappe.local.response.headers["Access-Control-Allow-Headers"] = "Content-Type"
+
+# Add the functions to Frappe hooks
+def boot_session(bootinfo):
+    set_cors_headers()
+    add_cors_headers()
+
+# Hook these functions in `hooks.py`
+before_request = ["clean_management.utils.set_cors_headers"]
+
+frappe.enqueue(add_cors_headers)
+
+
+# permission_query_conditions = {
+#     "assign_booking": "clean_management.assign-booking.get_permission_query_conditions"
+# }
+
+# In your custom app's hooks.py
+def get_list_filters():
+    return {
+        "Cleaning Task": [
+            ["supervisor", "=", frappe.session.user]
+        ]
+    }
+
+
+def before_save_payment(doc, method):
+    if doc.booking:
+        booking_amount = frappe.db.get_value("Booking", doc.booking, "amount")
+        if not flt(doc.amount) == flt(booking_amount, 2):
+            doc.amount = flt(booking_amount, 2)
+            frappe.msgprint("Amount auto-corrected to match Booking amount")
+
+frappe.get_doc("DocType", "Payment").on_update = before_save_payment

@@ -1,0 +1,51 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-02-19 11:52:20.304945",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "task",
+  "staff_no",
+  "start_time",
+  "end_time"
+ ],
+ "fields": [
+  {
+   "fieldname": "staff_no",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Staff No",
+   "options": "Cleaning Tasks"
+  },
+  {
+   "fieldname": "task",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Task",
+   "options": "\nDusting surfaces, including furniture, shelves, and decorative items.\nVacuuming carpets, rugs, upholstery, and floors.\nMopping hard floors like tile, laminate, and hardwood.\nEmptying trash cans and replacing liners.\nSanitizing and disinfecting high-touch surfaces.\nCleaning and disinfecting toilets.\nCleaning showers and bathtubs, removing soap scum and mildew.\nCleaning sinks, countertops, and mirrors in bathrooms.\nCleaning kitchen countertops, backsplashes, and sinks.\nCleaning exterior appliance surfaces and the inside of microwaves.\nCleaning stovetops.\nSweeping and mopping kitchen floors.\nCleaning interior and exterior windows.\nPerforming deep cleaning tasks, such as cleaning inside ovens, refrigerators, and cabinets.\nCarpet cleaning.\nOrganization services.\nChanging bed linens, and sometimes washing and folding laundry."
+  },
+  {
+   "fieldname": "start_time",
+   "fieldtype": "Time",
+   "label": "Start Time"
+  },
+  {
+   "fieldname": "end_time",
+   "fieldtype": "Time",
+   "label": "End Time"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-03-28 10:11:35.839448",
+ "modified_by": "Administrator",
+ "module": "Cleanser_calicut",
+ "name": "Staffs",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

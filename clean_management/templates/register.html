@@ -1,0 +1,433 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cleanser - Register</title>
+  <style>
+    body {
+      background: #f9f9f9;
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    .page-card {
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+      width: 100%;
+      padding: 2.5rem;
+      margin: 3rem auto;
+    }
+    .page-card h2 {
+      text-align: center;
+      font-size: 1.75rem;
+      margin-bottom: 1.5rem;
+      color: #000;
+    }
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+      color: #555;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 0.6rem;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 0.95rem;
+    }
+    .cta-button {
+      width: 100%;
+      padding: 0.75rem;
+      background: #000;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+    .auth-links {
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+  </style>
+  <script>
+    async function registerUser(event) {
+        event.preventDefault();
+
+        const full_name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const phone = document.getElementById("phone").value.trim();
+        const password = document.getElementById("password").value.trim();
+        const confirmPassword = document.getElementById("confirm-password").value.trim();
+
+        if (!full_name || !email || !phone || !password || !confirmPassword) {
+            alert("Please fill in all fields.");
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            alert("Passwords do not match.");
+            return;
+        }
+
+        const phonePattern = /^[0-9]{10,12}$/;
+        if (!phonePattern.test(phone)) {
+            alert("Please enter a valid phone number (10-12 digits).");
+            return;
+        }
+
+        try {
+          document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("registerForm");
+
+    if (!form) {
+        console.error("Error: Form with ID 'registerForm' not found.");
+        return;
+    }
+
+    form.onsubmit = registerUser;
+});
+
+function registerUser(event) {
+    event.preventDefault(); // Prevent page refresh
+
+    const data = {
+        full_name: document.getElementById("full_name")?.value || "",
+        email: document.getElementById("email")?.value || "",
+        phone: document.getElementById("phone")?.value || "",
+        password: document.getElementById("password")?.value || "",
+    };
+
+    console.log("Sending data:", data); // Debugging
+
+    fetch('/api/method/clean_management.api.register_user', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(responseData => console.log("Response:", responseData))
+    .catch(error => console.error("Error:", error));
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("registerForm");
+
+    if (!form) {
+        console.error("Error: Form with ID 'registerForm' not found.");
+        return;
+    }
+
+    form.onsubmit = registerUser;
+});
+
+
+// Attach function to form
+document.addEventListener("DOMContentLoaded", function () {
+    let loginForm = document.querySelector("form[data-login-form]");  // Check the correct selector
+    
+    if (loginForm) {
+        loginForm.onsubmit = function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            frappe.call({
+                method: "frappe.client.get_value",
+                args: {
+                    doctype: "User",
+                    filters: { "name": frappe.session.user },
+                    fieldname: "role"
+                },
+                callback: function (r) {
+                    if (r.message && r.message.role === "User") {
+                        window.location.href = "/app/user-dashboard";
+                    } else {
+                        window.location.href = "/app/home";
+                    }
+                }
+            });
+        };
+    } else {
+        console.error("Login form not found. Make sure the correct selector is used.");
+    }
+});
+          const response = await fetch("/api/method/clean_management.api.register_user", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              full_name,
+              email,
+              phone,
+              password,
+            }),
+          });
+
+          const data = await response.json();
+          if (data.success) {
+            alert("Registration successful. Please login to continue.");
+            window.location.href = "/login";
+          } else {
+            alert(data.message || "An error occurred. Please try again.");
+          }
+        } catch (error) {
+          console.error(error);
+          alert("An error occurred. Please try again.");
+        }
+    }
+</script>
+
+</head>
+<body>
+  <div class="page-card">
+    <h2>Register</h2>
+    <form id="register-form" onsubmit="registerUser(event)">
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" required>
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" required autocomplete="new-password">
+      </div>
+      <div class="form-group">
+        <label for="confirm-password">Confirm Password</label>
+        <input type="password" id="confirm-password" required autocomplete="new-password">
+      </div>
+      <button class="cta-button" type="submit">Register</button>
+    </form>
+    <div class="auth-links">
+      <a href="/login">Already have an account? Login</a>
+    </div>
+  </div>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cleanser - Register</title>
+  <style>
+    body {
+      background: #f9f9f9;
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    .page-card {
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+      width: 100%;
+      padding: 2.5rem;
+      margin: 3rem auto;
+    }
+    .page-card h2 {
+      text-align: center;
+      font-size: 1.75rem;
+      margin-bottom: 1.5rem;
+      color: #000;
+    }
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+      color: #555;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 0.6rem;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 0.95rem;
+    }
+    .cta-button {
+      width: 100%;
+      padding: 0.75rem;
+      background: #000;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+    .auth-links {
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+    #debug-console {
+      margin-top: 20px;
+      padding: 15px;
+      background: #f0f0f0;
+      border-radius: 5px;
+      font-family: monospace;
+      white-space: pre-wrap;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-card">
+    <h2>Register</h2>
+    <form id="register-form">
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" required>
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" required autocomplete="new-password">
+      </div>
+      <div class="form-group">
+        <label for="confirm-password">Confirm Password</label>
+        <input type="password" id="confirm-password" required autocomplete="new-password">
+      </div>
+      <button class="cta-button" type="submit">Register</button>
+    </form>
+    <div class="auth-links">
+      <a href="/login">Already have an account? Login</a>
+    </div>
+    <div id="debug-console"></div>
+  </div>
+
+  <script>
+    // Debugging utility
+    function debugLog(message) {
+      const debugConsole = document.getElementById('debug-console');
+      const timestamp = new Date().toISOString().substring(11, 23);
+      debugConsole.innerHTML += `[${timestamp}] ${message}\n`;
+      console.log(`[DEBUG] ${message}`);
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+      debugLog("DOM fully loaded and parsed");
+      
+      const form = document.getElementById("register-form");
+      if (!form) {
+        debugLog("ERROR: Form with ID 'register-form' not found");
+        return;
+      }
+      
+      form.addEventListener("submit", async function(event) {
+        event.preventDefault();
+        debugLog("Form submission intercepted");
+
+        // Collect form data
+        const formData = {
+          full_name: document.getElementById("name").value.trim(),
+          email: document.getElementById("email").value.trim(),
+          phone: document.getElementById("phone").value.trim(),
+          password: document.getElementById("password").value.trim(),
+          confirmPassword: document.getElementById("confirm-password").value.trim()
+        };
+
+        debugLog(`Form data collected: ${JSON.stringify(formData, null, 2)}`);
+
+        // Validation
+        if (!formData.full_name || !formData.email || !formData.phone || !formData.password || !formData.confirmPassword) {
+          debugLog("Validation failed: Empty fields");
+          alert("Please fill in all fields.");
+          return;
+        }
+
+        if (formData.password !== formData.confirmPassword) {
+          debugLog("Validation failed: Password mismatch");
+          alert("Passwords do not match.");
+          return;
+        }
+
+        const phonePattern = /^[0-9]{10,12}$/;
+        if (!phonePattern.test(formData.phone)) {
+          debugLog("Validation failed: Invalid phone format");
+          alert("Please enter a valid phone number (10-12 digits).");
+          return;
+        }
+
+        try {
+          debugLog("Attempting to send request to server...");
+          
+          // THIS IS THE CORRECT PAYLOAD DEFINITION
+          const payload = {
+            full_name: formData.full_name,
+            email: formData.email,
+            phone: formData.phone,
+            password: formData.password
+          };
+
+          debugLog(`Request payload: ${JSON.stringify(payload)}`);
+          
+          const startTime = performance.now();
+          const response = await fetch("/api/method/clean_management.api.register_user", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload),  // Using the properly defined payload
+          });
+          const endTime = performance.now();
+          
+          debugLog(`Request completed in ${(endTime - startTime).toFixed(2)}ms`);
+          debugLog(`Response status: ${response.status}`);
+
+          const responseData = await response.json();
+          debugLog(`Full response data: ${JSON.stringify(responseData)}`);
+
+          // Handle nested response structure
+          const apiResponse = responseData.message || responseData;
+          
+          if (apiResponse.status === "success") {
+            debugLog("Registration successful");
+            alert(apiResponse.message || "Registration successful. Please login to continue.");
+            window.location.href = apiResponse.redirect_url || "/login";
+          } else {
+            debugLog(`Registration failed: ${apiResponse.message || 'No error message provided'}`);
+            alert(apiResponse.message || "An error occurred. Please try again.");
+          }
+        } catch (error) {
+          debugLog(`ERROR in registration process: ${error.message}`);
+          console.error("Registration error:", error);
+          alert("An error occurred. Please try again.");
+        }
+      });
+
+      debugLog("Form event listener attached successfully");
+    });
+  </script>

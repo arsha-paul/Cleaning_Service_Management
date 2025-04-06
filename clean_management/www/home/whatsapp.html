@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Chat</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .whatsapp-button {
+            background-color: #25D366;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .whatsapp-button:hover {
+            background-color: #1EBE5D;
+        }
+    </style>
+</head>
+<body>
+
+    <button class="whatsapp-button" onclick="openWhatsApp()">Connect with me</button>
+
+    <script>
+        function openWhatsApp() {
+            const phoneNumber = "918891133782"; // No "+" sign
+            const message = "Hello! I would like to chat.";
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
+            console.log("Opening WhatsApp:", whatsappUrl); // Debugging line
+            window.open(whatsappUrl, "_blank");
+        }
+    </script>
+
+</body>
+</html>

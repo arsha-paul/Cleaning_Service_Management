@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token }}"> <!-- Add CSRF token -->
+    <title>Booking - Cleanser Calicut</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .home-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: #1565c0;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+        }
+
+        .home-button:hover {
+            background: #0d47a1;
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .booking-container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .booking-container h2 {
+            margin-bottom: 20px;
+            color: #1565c0;
+        }
+
+        .booking-form input,
+        .booking-form select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        .booking-form button {
+            background: #ff9800;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: all 0.3s;
+        }
+
+        .booking-form button:hover {
+            background: #e68900;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <a href="../user/dash.html" class="home-button">Back</a>
+    <div class="booking-container">
+        <h2>Book Now</h2>
+        <form class="booking-form" enctype="multipart/form-data" onsubmit="handleBooking(event)">
+            <select id="service_type" name="service_type" required>
+                <option value="">Select Cleaning Type</option>
+                <option value="General Cleaning">General Cleaning</option>
+                <option value="Deep Cleaning">Deep Cleaning</option>
+                <option value="Move-In/Move-Out Cleaning">Move-In/Move-Out Cleaning</option>
+                <option value="Carpet Cleaning">Carpet Cleaning</option>
+                <option value="Window Cleaning">Window Cleaning</option>
+                <option value="Upholstery Cleaning">Upholstery Cleaning</option>
+                <option value="Office Cleaning">Office Cleaning</option>
+                <option value="Janitorial Services">Janitorial Services</option>
+                <option value="Post-Construction Cleaning">Post-Construction Cleaning</option>
+                <option value="Disaster Restoration">Disaster Restoration</option>
+            </select>
+
+            <input type="text" id="username" name="username" placeholder="Username" required>
+            <input type="text" id="phone" name="phone" placeholder="Phone Number" required>
+            <input type="date" id="date" name="date" required>
+            <input type="text" id="location" name="location" placeholder="Location" required>
+            <input type="file" id="image" name="image" accept="image/*" required>
+            <input type="number" id="sqft" name="sqft" placeholder="Square Footage" required>
+            <input type="text" id="address" name="address" placeholder="Address" required>
+            <input type="text" id="special_instruction" name="special_instructions" placeholder="Special Instruction" required>
+
+            <select id="district" name="district" onchange="updateCities()" required>
+                <option value="">Select District</option>
+                <option value="Kannur">Kannur</option>
+                <option value="Wayanad">Wayanad</option>
+                <option value="Kozhikode">Kozhikode</option>
+                <option value="Malappuram">Malappuram</option>
+                <option value="Palakkad">Palakkad</option>
+                <option value="Thrissur">Thrissur</option>
+                <option value="Ernakulam">Ernakulam</option>
+                <option value="Idukki">Idukki</option>
+                <option value="Kottayam">Kottayam</option>
+                <option value="Alappuzha">Alappuzha</option>
+                <option value="Pathanamthitta">Pathanamthitta</option>
+                <option value="Kollam">Kollam</option>
+                <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+            </select>
+
+            <select id="city" name="city" required>
+                <option value="">Select City</option>
+            </select>
+
+            <button type="submit">Book Now</button>
+        </form>
+    </div>
+
+    <script>
+        const citiesByDistrict = {
+            "Kannur": ["Kannur", "Thalassery", "Payyanur", "Taliparamba", "Sreekandapuram", "Iritty", "Mattannur", "Azhikode"],
+            "Wayanad": ["Kalpetta", "Sulthan Bathery", "Mananthavady", "Vythiri", "Panamaram", "Meppadi", "Pulpally", "Ambalavayal"],
+            "Kozhikode": ["Kozhikode", "Vadakara", "Koyilandy", "Feroke", "Ramanattukara", "Mukkam", "Perambra", "Balussery"],
+            "Malappuram": ["Malappuram", "Manjeri", "Perinthalmanna", "Tirur", "Ponnani", "Nilambur", "Kondotty", "Valanchery"],
+            "Palakkad": ["Palakkad", "Ottapalam", "Chittur", "Pattambi", "Shoranur", "Mannarkkad", "Alathur", "Koduvayur"],
+            "Thrissur": ["Thrissur", "Guruvayur", "Kodungallur", "Chalakudy", "Kunnamkulam", "Wadakkanchery", "Irinjalakuda", "Cherpu"],
+            "Ernakulam": ["Ernakulam", "Kochi", "Aluva", "Perumbavoor", "Muvattupuzha", "Kothamangalam", "Angamaly", "Paravur"],
+            "Idukki": ["Thodupuzha", "Painavu", "Kattappana", "Adimali", "Munnar", "Peerumedu", "Nedumkandam", "Kumily"],
+            "Kottayam": ["Kottayam", "Pala", "Changanassery", "Vaikom", "Ettumanoor", "Kanjirappally", "Erattupetta", "Kumarakom"],
+            "Alappuzha": ["Alappuzha", "Chengannur", "Mavelikara", "Kayamkulam", "Kuttanad", "Ambalappuzha", "Haripad", "Cherthala"],
+            "Pathanamthitta": ["Pathanamthitta", "Thiruvalla", "Adoor", "Ranni", "Pandalam", "Konni", "Mallappally", "Elanthoor"],
+            "Kollam": ["Kollam", "Karunagappalli", "Kottarakkara", "Punalur", "Kundara", "Paravur", "Anchal", "Chavara"],
+            "Thiruvananthapuram": ["Thiruvananthapuram", "Neyyattinkara", "Varkala", "Attingal", "Nedumangad", "Kattakada", "Vizhinjam", "Pothencode"]
+        };
+
+        function updateCities() {
+            const districtSelect = document.getElementById("district");
+            const citySelect = document.getElementById("city");
+            const selectedDistrict = districtSelect.value;
+
+            // Reset city select
+            citySelect.innerHTML = '<option value="">Select City</option>';
+
+            if (selectedDistrict) {
+                const cities = citiesByDistrict[selectedDistrict];
+                cities.forEach(city => {
+                    const option = document.createElement("option");
+                    option.value = city;
+                    option.textContent = city;
+                    citySelect.appendChild(option);
+                });
+            }
+        }
+        async function handleBooking(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    // Collect form data
+    const formData = new FormData(event.target);
+    console.log("Form Data:", Object.fromEntries(formData.entries())); // Debug form data
+
+    try {
+        // Disable submit button and show loading state
+        const submitButton = document.querySelector(".booking-form button");
+        submitButton.disabled = true;
+        submitButton.innerHTML = 'Submitting... <i class="fas fa-spinner fa-spin"></i>';
+
+        // Get CSRF token
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+
+        // Make API request to store data in Booking Doctype
+        const jsonData = JSON.stringify(Object.fromEntries(formData.entries()));
+const response = await fetch('/api/method/clean_management.api.create_booking', {
+    method: 'POST',
+    headers: {
+        'X-Frappe-CSRF-Token': csrfToken,
+        'Content-Type': 'application/json'
+    },
+    body: jsonData
+});
+
+
+        // Handle response
+        if (!response.ok) {
+            const errorData = await response.json();
+            console.log("Error Response:", errorData); // Debug error response
+            throw new Error(errorData.message || errorData.exc || 'Booking failed');
+        }
+
+        const result = await response.json();
+        console.log("Success Response:", result); // Debug success response
+
+        if (result.message && !result.message.error) {
+            alert('Booking successful! Your request ID: ' + result.message.booking_id);
+            window.location.href = '/confirmation'; // Redirect to a confirmation page
+        } else {
+            throw new Error(result.message.error || 'Booking failed');
+        }
+    } catch (error) {
+        alert('Error: ' + error.message);
+    } finally {
+        // Reset button state
+        const submitButton = document.querySelector(".booking-form button");
+        submitButton.disabled = false;
+        submitButton.innerHTML = 'Book Now';
+    }
+}
+    </script>
+</body>
+</html>

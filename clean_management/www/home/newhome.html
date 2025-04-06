@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cleanser Calicut - Home</title>
+    <style>
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px 40px;
+            color: #ff9800;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .navbar .logo {
+            font-size: 26px;
+            font-weight: bold;
+            color: #ff9800;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .navbar ul li a {
+            color: #ff9800;
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .navbar ul li a:hover {
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+            background: url('./home/three people.jpg') no-repeat center center/cover;
+            animation: bgSlide 12s infinite linear;
+        }
+
+        .hero h1 {
+            font-size: 50px;
+            font-weight: bold;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 22px;
+            margin-top: 10px;
+        }
+
+        .hero button {
+            background: #ff9800;
+            border: none;
+            padding: 14px 24px;
+            font-size: 20px;
+            color: white;
+            cursor: pointer;
+            border-radius: 30px;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+
+        .hero button:hover {
+            background: #e68900;
+            transform: scale(1.1);
+        }
+
+        /* Background Image Animation */
+        @keyframes bgSlide {
+            0% { background-image: url('../home/three people.jpg'); }
+            33% { background-image: url('../home/door.jpg'); }
+            66% { background-image: url('../home/two people.jpg'); }
+            100% { background-image: url('../home/table.jpg'); }
+        }
+
+        /* About Section */
+        .about {
+            padding: 80px 20px;
+            margin-top: 100px;
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            text-align: center;
+            transition: all 0.5s ease-in-out;
+        }
+
+        .about h2 {
+            font-size: 36px;
+            color: #0d47a1;
+            margin-bottom: 20px;
+        }
+
+        .about p {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 15px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .about:hover {
+            background: linear-gradient(135deg, #bbdefb, #e3f2fd);
+            transform: scale(1.02);
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .about p:hover {
+            transform: scale(1.05);
+        }
+
+        /* Why Choose Us Section */
+        .why-choose-us {
+            position: relative;
+            margin-top: 100px;
+            padding: 80px 20px;
+            background: url('./home/girl.jpg') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .why-choose-us::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1;
+        }
+
+        .why-choose-us h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .why-choose-us p {
+            font-size: 18px;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .benefits {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .benefit {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 12px;
+            width: 300px;
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .benefit:hover {
+            transform: translateY(-10px);
+        }
+
+        .benefit h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .benefit ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .benefit ul li {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        /* Janitorial Section */
+        .janitorial {
+            padding: 80px 20px;
+            margin-top: 100px;
+            background: #1565c0;
+            color: white;
+            text-align: center;
+        }
+
+        .janitorial h2 {
+            font-size: 36px;
+            margin-bottom: 40px;
+        }
+
+        .steps {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .step {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 12px;
+            width: 300px;
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .step:hover {
+            transform: translateY(-10px);
+        }
+
+        .step h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .step p {
+            font-size: 16px;
+            color: #f0f0f0;
+        }
+
+        /* Services Section */
+        .services {
+            text-align: center;
+            padding: 80px 20px;
+            background: white;
+        }
+
+        .services h2 {
+            font-size: 36px;
+            color: #1565c0;
+            margin-bottom: 20px;
+        }
+
+        .service-items {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .service-box {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            padding: 30px;
+            border-radius: 12px;
+            width: 280px;
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+
+        .service-box:hover {
+            transform: translateY(-10px);
+        }
+
+        .service-box h3 {
+            color: #0d47a1;
+            margin-bottom: 10px;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            width: 80%;
+            max-width: 500px;
+            position: relative;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-content h2 {
+            margin-bottom: 10px;
+            color: #1565c0;
+        }
+
+        .modal-content p {
+            font-size: 18px;
+            color: #333;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 22px;
+            cursor: pointer;
+            color: #333;
+        }
+
+        .close:hover {
+            color: red;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 80px 20px;
+            background: #1565c0;
+            color: white;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .contact input, .contact textarea {
+            padding: 12px;
+            margin: 10px 0;
+            width: 320px;
+            border: none;
+            border-radius: 8px;
+        }
+
+        .contact button {
+            background: #ff9800;
+            border: none;
+            padding: 14px 24px;
+            font-size: 18px;
+            color: white;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: all 0.3s;
+        }
+
+        .contact button:hover {
+            background: #e68900;
+            transform: scale(1.1);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #0d47a1;
+            color: #fff;
+            padding: 20px 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+
+        .footer-section {
+            margin: 10px;
+            max-width: 200px;
+        }
+
+        .footer-section h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .footer-section p, .footer-section ul {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 5px;
+        }
+
+        .footer-section ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .footer-section ul li a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 10px;
+            border-top: 1px solid #444;
+            margin-top: 20px;
+        }
+
+        .footer-bottom p {
+            margin: 0;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Cleanser Calicut</div>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="home/whatsapp.html">Contact</a></li>
+            <li><a href="/login">Login</a></li>
+        </ul>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Professional Cleaning Services</h1>
+            <p>Bringing a fresh, clean, and hygienic environment to your space</p>
+            <button onclick="location.href='../feedback/feedback.html'">View Our Happy Customers</button>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <div class="about" id="about">
+        <h2>About Us</h2>
+        <p>At Cleanser Calicut, we understand that a clean space is more than just a visual delight; it's a sanctuary, a haven where life unfolds. We're not simply a cleaning service; we're your dedicated partners in cultivating a healthy and harmonious environment. Born and bred in the heart of Calicut, we possess an intimate understanding of the unique rhythms and needs of our community, from bustling family homes to thriving local businesses. This local insight, coupled with our unwavering commitment to excellence, has solidified our reputation for unparalleled reliability, meticulous efficiency, and truly exceptional quality.</p>
+        <p>Our team, comprised of carefully selected and rigorously trained professionals, approaches every task with a passion for perfection. They are not just cleaners; they are custodians of your comfort, meticulously attending to every corner, ensuring no detail is overlooked. We believe that true cleanliness extends beyond surface appearances, encompassing the well-being of our clients and the delicate balance of our ecosystem. That's why we prioritize eco-conscious practices, utilizing safe and sustainable cleaning solutions that nurture both your space and our shared environment. With Cleanser Calicut, you're not just getting a clean; you're investing in peace of mind, a healthier lifestyle, and a brighter, more vibrant Calicut.</p>
+    </div>
+
+    <!-- Why Choose Us Section -->
+    <div class="why-choose-us">
+        <h2>Why Choose Us</h2>
+        <p>Amazing benefits with us</p>
+        <div class="benefits">
+            <div class="benefit">
+                <h3>Professional Cleaning Staff</h3>
+                <ul>
+                    <li>Professional and experienced staff ready to help you anytime.</li>
+                </ul>
+            </div>
+            <div class="benefit">
+                <h3>Post Cleaning Professional Services</h3>
+                <ul>
+                    <li>We work with your schedule to provide flexible services when you need them most.</li>
+                </ul>
+            </div>
+            <div class="benefit">
+                <h3>Natural Products</h3>
+                <ul>
+                    <li>No harmful chemicals! Only natural products are used during cleaning.</li>
+                </ul>
+            </div>
+            <div class="benefit">
+                <h3>The Best Team Cleaning Services</h3>
+                <ul>
+                    <li>We consistently use the best and world-class equipment in our cleaning process.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Janitorial Section -->
+    <div class="janitorial">
+        <h2>How Do Our Cleaning Services Work?</h2>
+        <div class="steps">
+            <div class="step">
+                <h3>Choose a Cleaning Plan</h3>
+                <p>Select the plan that best suits your business needs, and our janitorial cleaning services will leave your surroundings spotless.</p>
+            </div>
+            <div class="step">
+                <h3>Set a Schedule</h3>
+                <p>Our local account manager is available 24/7 to review any special requests related to commercial cleaning services, office cleaning, hotel cleaning, or any other service.</p>
+            </div>
+            <div class="step">
+                <h3>Get the Job Done</h3>
+                <p>We prioritize customer needs, whether it's cleaning for offices, hotels, or any other space. Our specialized staff is dedicated to providing quality service and effective communication.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Services Section -->
+    <div class="services" id="services">
+        <h2>Our Services</h2>
+        <div class="service-items">
+            <div class="service-box" onclick="openModal('General Cleaning', `General cleaning at Cleanser Calicut provides the essential foundation for a healthy and organized space. Our routine services encompass meticulous dusting of all surfaces, thorough floor care including vacuuming and mopping, comprehensive surface sanitization of high-touch areas, and careful tidying to maintain an orderly environment. We ensure every corner receives attention, promoting not only visual cleanliness but also a hygienic atmosphere conducive to well-being.`)">
+                <h3>General Cleaning</h3>
+            </div>
+            <div class="service-box" onclick="openModal('Deep Cleaning', `Deep cleaning offers an intensive approach to home and office cleanliness, reaching beyond surface-level tidiness. It involves scrubbing surfaces, deep-cleaning appliances, and tackling areas often overlooked in routine cleaning. This ensures a refreshed and sanitized environment.`)">
+                <h3>Deep Cleaning</h3>
+            </div>
+            <div class="service-box" onclick="openModal('Move-In/Move-Out Cleaning', `Move-in/move-out cleaning ensures a seamless transition by thoroughly preparing a space for new occupants or restoring it for departure. It includes deep cleaning of all rooms, inside cabinets, and appliances while sanitizing all surfaces for a fresh start.`)">
+                <h3>Move-In/Move-Out Cleaning</h3>
+            </div>
+            <div class="service-box" onclick="openModal('Carpet Cleaning', `Carpet cleaning specializes in removing dirt, stains, and allergens using advanced techniques like steam cleaning. This service enhances carpet longevity and improves indoor air quality by eliminating harmful particles.`)">
+                <h3>Carpet Cleaning</h3>
+            </div>
+            <div class="service-box" onclick="openModal('Window Cleaning', `Window cleaning services provide a crystal-clear view by eliminating streaks, smudges, and dirt from both interior and exterior glass surfaces. The service ensures spotless windows with professional techniques.`)">
+                <h3>Window Cleaning</h3>
+            </div>
+            <div class="service-box" onclick="openModal('Upholstery Cleaning', `Upholstery cleaning refreshes furniture by removing stains, dirt, and allergens. It involves specialized treatments tailored to different fabric types, restoring vibrancy and hygiene.`)">
+                <h3>Upholstery Cleaning</h3>
+            </div>
+            <div class="service-box" onclick="openModal('Office Cleaning', `Office cleaning ensures a pristine and productive workspace by covering desks, common areas, restrooms, and break rooms. A clean office enhances employee morale and professionalism.`)">
+                <h3>Office Cleaning</h3>
+            </div>
+            <div class="service-box" onclick="openModal('Janitorial Services', `Janitorial services provide regular cleaning and maintenance for commercial spaces such as offices, schools, and retail stores. The service ensures a hygienic and well-maintained environment.`)">
+                <h3>Janitorial Services</h3>
+            </div>
+            <div class="service-box" onclick="openModal('Post-Construction Cleaning', `Post-construction cleaning removes debris, dust, and construction materials from newly built or renovated spaces. It ensures the site is move-in ready with a polished finish.`)">
+                <h3>Post-Construction Cleaning</h3>
+            </div>
+            <div class="service-box" onclick="openModal('Disaster Restoration', `Disaster restoration services help restore properties affected by floods, fires, or other disasters. It ensures a safe and habitable space after emergencies.`)">
+                <h3>Disaster Restoration</h3>
+            </div>
+            <div class="service-box" onclick="openModal('Home Cleaning', `Home cleaning services provide deep cleaning and sanitization for a healthy living environment. It ensures every corner of the home is fresh and tidy.`)">
+                <h3>Home Cleaning</h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="serviceModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <p id="modalDescription"></p>
+        </div>
+    </div>
+
+    <script>
+        function openModal(title, description) {
+            document.getElementById("modalTitle").innerText = title;
+            document.getElementById("modalDescription").innerText = description;
+            document.getElementById("serviceModal").style.display = "flex";
+        }
+
+        function closeModal() {
+            document.getElementById("serviceModal").style.display = "none";
+        }
+
+        // Close modal when clicking outside of the modal content
+        window.onclick = function(event) {
+            let modal = document.getElementById("serviceModal");
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
+    </script>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Head Office</h3>
+                <p>Karuvissery, Calicut</p>
+                <p>Kerala</p>
+            </div>
+            <div class="footer-section">
+                <h3>Reach Us On</h3>
+                <p>8891133782</p>
+                <p>Call For Inquiries</p>
+            </div>
+            <div class="footer-section">
+                <h3>Email Us At</h3>
+                <p>cleansercalicut@gmail.com</p>
+                <p>Write Us For All Your Queries</p>
+            </div>
+            <div class="footer-section">
+                <h3>Site Links</h3>
+                <ul>
+                    <li><a href="#">Vendors/Subcontractors</a></li>
+                    <li><a href="#">Privacy</a></li>
+                    <li><a href="#">Terms</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Copyright © 2025 Cleanser Calicut. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,77 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:CT-{YY}-{####}",
+ "creation": "2025-02-19 11:37:32.397243",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "cleaning_task_section",
+  "supervisor",
+  "cleaning_request",
+  "staffs",
+  "items",
+  "remarks"
+ ],
+ "fields": [
+  {
+   "fieldname": "cleaning_request",
+   "fieldtype": "Link",
+   "label": "Cleaning Request",
+   "options": "Booking"
+  },
+  {
+   "fieldname": "staffs",
+   "fieldtype": "Table",
+   "label": "Staffs",
+   "options": "Staffs"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "Items"
+  },
+  {
+   "fieldname": "supervisor",
+   "fieldtype": "Link",
+   "label": "Supervisor",
+   "options": "User"
+  },
+  {
+   "fieldname": "cleaning_task_section",
+   "fieldtype": "Section Break",
+   "label": "Cleaning Task"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-03-28 13:29:29.341050",
+ "modified_by": "Administrator",
+ "module": "Cleanser_calicut",
+ "name": "Cleaning Task",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
