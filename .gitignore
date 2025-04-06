@@ -1,7 +1,45 @@
-.DS_Store
-*.pyc
-*.egg-info
+# Ignore Python compiled files
+__pycache__/
+*.py[cod]
+
+# Frappe-specific ignores
+*.db
 *.swp
-tags
-node_modules
-__pycache__
+*.swo
+*.swn
+*.swm
+*.DS_Store
+*.log
+*.gz
+
+# Node modules and build assets
+node_modules/
+*.tar.gz
+*.zip
+*.tar
+
+# Bench files
+env/
+*.env
+*.env.*
+*.json
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+
+# VSCode
+.vscode/
+
+# Mac/Unix
+.DS_Store
+
+# Backup files
+*.bak
+*.tmp
+
+# Ignore private files
+sites/*/private/*
+sites/*/backups/*
+sites/assets/
